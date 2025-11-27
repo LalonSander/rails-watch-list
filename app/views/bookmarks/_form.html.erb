@@ -1,5 +1,8 @@
   <%= simple_form_for [@list, @bookmark] do |f| %>
-    <%= f.input :movie_id, collection: Movie.all.map { |movie| [movie.title, movie.id] } %>
+    <%= f.input :movie_id,
+      collection: Movie.where.not(id: @list.movie_ids)
+                       .map { |movie| [movie.title, movie.id] } %>
+
     <%= f.input :comment %>
     <div class="d-flex justify-content-between">
       <%= f.button :submit, "Add Movie", class: "btn btn-primary" %>
