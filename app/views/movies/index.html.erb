@@ -1,0 +1,14 @@
+<div class="main d-flex flex-column justify-content-center align-items-center">
+
+  <h1>This is a movies view</h1>
+
+  <div class="container">
+    <div class="row">
+
+      <% @movies.each do |movie| %>
+        <%= render "moviecard", movie: movie, save_icon: true %>
+      <% end %>
+
+    <div>
+  <div>
+<div>

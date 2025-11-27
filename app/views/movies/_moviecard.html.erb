@@ -1,0 +1,49 @@
+<% bookmark ||= false %>
+<% save_icon ||= false %>
+
+<div class="col-6 col-md-4 col-lg-3 p-1">
+  <div class="card h-100 position-relative">
+
+    <% if save_icon %>
+      <button
+        class="position-absolute top-0 end-0 m-2 px-1 bg-light rounded-3 border-0"
+        type="button"
+        aria-label="Bookmark"
+      >
+        <i class="fa-regular fa-bookmark"></i>
+    </button>
+    <% end %>
+
+    <% if bookmark %>
+      <%= button_to bookmark_path(bookmark),
+          method: :delete,
+          class: "position-absolute top-0 end-0 m-2 px-1 rounded-3 border-0 bg-danger text-white",
+          form: { data: { turbo_confirm: "Are you sure?" } } do %>
+        <i class="fa-solid fa-trash"></i>
+      <% end %>
+    <% end %>
+
+    <img
+      src="<%=movie.poster_url%>"
+      onerror="this.onerror=null; this.src='https://placehold.co/300x450?text=No+Poster+Available&font=roboto';"
+      class="card-img-top"
+      alt="<%= movie.title%>">
+
+    <div class="card-body">
+      <span class="badge bg-primary mb-2"><%=movie.rating.round(1)%> ⭐</span>
+      <h5 class="card-title"><%=movie.title%></h5>
+
+    <% if !bookmark %>
+      <p class="card-text">
+        <%=movie.overview%>
+      </p>
+    <% elsif bookmark %>
+      <p class="card-text">
+        <i class="fa-solid fa-quote-left"></i>
+        <%=bookmark.comment%>
+      </p>
+    <% end %>
+
+    </div>
+  </div>
+</div>

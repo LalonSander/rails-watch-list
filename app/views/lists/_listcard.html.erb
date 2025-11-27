@@ -1,0 +1,17 @@
+          <div class="card h-100 text-dark shadow-sm position-relative">
+
+            <%= button_to list_path(list),
+                method: :delete,
+                class: "position-absolute top-0 end-0 m-2 px-1 rounded-3 border-0 bg-danger text-white z-3",
+                form: { data: { turbo_confirm: 'Are you sure?' } } do %>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
+
+            <%= link_to list_path(list), class: "stretched-link text-decoration-none text-reset" do %>
+              <div class="card-body">
+                <h5 class="card-title"><%= list.name %></h5>
+                <p class="card-text"><strong>Movies:</strong> <%= list.bookmarks.count %></p>
+              </div>
+            <% end %>
+
+          </div>
