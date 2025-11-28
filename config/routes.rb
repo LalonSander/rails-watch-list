@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  root to: redirect("/lists")
+
   resources :movies, only: [:index, :show]
   resources :bookmarks, only: [:destroy]
   resources :lists do
