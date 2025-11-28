@@ -1,10 +1,12 @@
-          <div class="card h-100 text-white shadow-sm position-relative d-flex align-items-center justify-content-center"
+          <div class="card h-100 <%= list.photo.attached? ? "text-white" : "text-dark" %> shadow-sm position-relative d-flex align-items-center justify-content-center"
                style='
                 aspect-ratio: 3 / 2;
+                <% if list.photo.attached? %>
                 background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("<%= cl_image_path list.photo.key, height: 300, crop: :fill %>");
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
+                <% end %>
                '>
 
             <%= button_to list_path(list),
