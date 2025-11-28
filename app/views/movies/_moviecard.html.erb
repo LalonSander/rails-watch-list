@@ -30,7 +30,9 @@
       alt="<%= movie.title%>">
 
     <div class="card-body">
-      <span class="badge bg-primary mb-2"><%=movie.rating.round(1)%> ⭐</span>
+      <span class="badge bg-info mb-2"><%=movie.rating.round(1)%> ⭐</span>
+      <% list_count = movie.lists.count %>
+      <span class="badge bg-info mb-2">On <%= list_count %> <%= list_count > 1 ? "Lists" : "List" %> 🍿</span>
       <h5 class="card-title"><%=movie.title%></h5>
 
     <% if !bookmark %>

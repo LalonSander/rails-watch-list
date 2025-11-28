@@ -9,4 +9,16 @@
 
 // Your CSS partials
 @import "components/index";
+@import "components/buttons";
 @import "pages/index";
+
+// fonts
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;700&family=Playfair+Display:wght@400;700&family=Inter:wght@400;700&display=swap");
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: bold;
+}
+body, p {
+  font-family: 'Inter', sans-serif;
+}

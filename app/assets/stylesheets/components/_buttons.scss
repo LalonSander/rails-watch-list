@@ -1,0 +1,10 @@
+.btn-primary {
+  background-color: $golden-amber !important;   // Golden Amber
+  border-color: $dark-amber !important;       // Slightly darker amber
+  color: #000 !important;                 // Black text for contrast
+}
+
+.btn-primary:hover {
+  background-color: darken($golden-amber, 7%) !important;  // Darken on hover
+  border-color: darken($dark-amber, 7%) !important;
+}
