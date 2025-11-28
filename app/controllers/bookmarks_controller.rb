@@ -23,7 +23,7 @@ class BookmarksController < ApplicationController
     else
       #redirect_to list_path(@list), bookmark: @bookmark, alert: "Could not add bookmark"
       render "lists/show", status: :unprocessable_entity
-      #raise
+      raise
     end
   end
 

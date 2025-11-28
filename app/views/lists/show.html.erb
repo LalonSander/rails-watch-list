@@ -11,6 +11,16 @@
             <%= render "bookmarks/form", list: @list, bookmark: @bookmark  %>
           </div>
 
+          <% if defined?(@movie) && @movie.present? %>
+            <h5 class="mt-4">Search Result:</h5>
+            <div class="row">
+              <%= render "movies/moviecard", movie: @movie, save_icon: true %>
+            </div>
+          <% elsif defined?(@movies) && @movies.blank? %>
+            <p class="text-muted mt-4">No results found for "<%= params[:query] %>".</p>
+          <% end %>
+
+
           <% if @list.bookmarks.any? %>
             <h5 class="mt-4">Saved Movies:</h5>
             <div class="row">

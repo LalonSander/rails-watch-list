@@ -9,9 +9,10 @@ Rails.application.routes.draw do
   # root "posts#index"
   root to: redirect("/lists")
 
-  resources :movies, only: [:index, :show]
+  resources :movies
   resources :bookmarks, only: [:destroy]
   resources :lists do
     resources :bookmarks, only: [:new, :create]
+    get "movies/search", to: "movies#search", as: :search_movies
   end
 end

@@ -4,15 +4,29 @@
 <div class="col-6 col-md-4 col-lg-3 p-1">
   <div class="card h-100 position-relative">
 
-    <% if save_icon %>
-      <button
-        class="position-absolute top-0 end-0 m-2 px-1 bg-light rounded-3 border-0"
-        type="button"
-        aria-label="Bookmark"
-      >
+  <% if save_icon %>
+
+    <% existing_bookmark = @list.bookmarks.find_by(movie: movie) %>
+
+    <% if existing_bookmark %>
+
+      <%= button_to bookmark_path(existing_bookmark),
+          method: :delete,
+          class: "position-absolute top-0 end-0 m-2 px-1 rounded-3 border-0 bg-light text-danger",
+          form: { data: { turbo_confirm: "Remove this movie from the list?" } } do %>
+        <i class="fa-solid fa-bookmark"></i>
+      <% end %>
+    <% else %>
+
+      <%= button_to list_bookmarks_path(@list),
+            params: { bookmark: { movie_id: movie.id } },
+            method: :post,
+            class: "position-absolute top-0 end-0 m-2 px-1 rounded-3 border-0 bg-light text-primary" do %>
         <i class="fa-regular fa-bookmark"></i>
-    </button>
+      <% end %>
+
     <% end %>
+  <% end %>
 
     <% if bookmark %>
       <%= button_to bookmark_path(bookmark),
@@ -35,14 +49,9 @@
       <span class="badge bg-info mb-2">On <%= list_count %> <%= list_count > 1 ? "Lists" : "List" %> 🍿</span>
       <h5 class="card-title"><%=movie.title%></h5>
 
-    <% if !bookmark %>
+    <% if !bookmark && !save_icon %>
       <p class="card-text">
         <%=movie.overview%>
-      </p>
-    <% elsif bookmark %>
-      <p class="card-text">
-        <i class="fa-solid fa-quote-left"></i>
-        <%=bookmark.comment%>
       </p>
     <% end %>
 

@@ -1,10 +1,5 @@
-  <%= simple_form_for [@list, @bookmark] do |f| %>
-    <%= f.input :movie_id,
-      collection: Movie.where.not(id: @list.movie_ids)
-                       .map { |movie| [movie.title, movie.id] } %>
-
-    <%= f.input :comment %>
-    <div class="d-flex justify-content-between">
-      <%= f.button :submit, "Add Movie", class: "btn btn-primary rounded-pill" %>
-    </div>
-  <% end %>
+<!-- app/views/lists/_search_form.html.erb -->
+<%= form_with url: list_search_movies_path(@list), method: :get, local: true, class: "d-flex mb-4" do |f| %>
+  <%= f.text_field :query, placeholder: "Search for a movie", class: "form-control me-2" %>
+  <%= f.submit "Search", class: "btn btn-primary" %>
+<% end %>
