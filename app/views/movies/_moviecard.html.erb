@@ -2,59 +2,58 @@
 <% save_icon ||= false %>
 
 <div class="col-6 col-md-4 col-lg-3 p-1">
-  <div class="card h-100 position-relative">
+  <% card_content = capture do %>
+    <div class="card h-100 position-relative">
 
-  <% if save_icon %>
+      <% if save_icon %>
+        <% existing_bookmark = @list.bookmarks.find_by(movie: movie) %>
 
-    <% existing_bookmark = @list.bookmarks.find_by(movie: movie) %>
-
-    <% if existing_bookmark %>
-
-      <%= button_to bookmark_path(existing_bookmark),
-          method: :delete,
-          class: "position-absolute top-0 end-0 m-2 px-1 rounded-3 border-0 bg-light text-danger",
-          form: { data: { turbo_confirm: "Remove this movie from the list?" } } do %>
-        <i class="fa-solid fa-bookmark"></i>
+        <% if existing_bookmark %>
+          <%= button_to bookmark_path(existing_bookmark),
+                method: :delete,
+                class: "position-absolute top-0 end-0 m-2 px-1 rounded-3 border-0 bg-light text-danger",
+                form: { data: { turbo_confirm: "Remove this movie from the list?" } } do %>
+            <i class="fa-solid fa-bookmark"></i>
+          <% end %>
+        <% else %>
+          <%= button_to list_bookmarks_path(@list),
+                params: { bookmark: { movie_id: movie.id } },
+                method: :post,
+                class: "position-absolute top-0 end-0 m-2 px-1 rounded-3 border-0 bg-light text-primary" do %>
+            <i class="fa-regular fa-bookmark"></i>
+          <% end %>
+        <% end %>
       <% end %>
-    <% else %>
 
-      <%= button_to list_bookmarks_path(@list),
-            params: { bookmark: { movie_id: movie.id } },
-            method: :post,
-            class: "position-absolute top-0 end-0 m-2 px-1 rounded-3 border-0 bg-light text-primary" do %>
-        <i class="fa-regular fa-bookmark"></i>
+      <% if bookmark %>
+        <%= button_to bookmark_path(bookmark),
+              method: :delete,
+              class: "position-absolute top-0 end-0 m-2 px-1 rounded-3 border-0 bg-danger text-white",
+              form: { data: { turbo_confirm: "Are you sure?" } } do %>
+          <i class="fa-solid fa-trash"></i>
+        <% end %>
       <% end %>
 
-    <% end %>
+      <img
+        src="<%= movie.poster_url %>"
+        onerror="this.onerror=null; this.src='https://placehold.co/300x450?text=No+Poster+Available&font=roboto';"
+        class="card-img-top"
+        alt="<%= movie.title %>">
+
+      <div class="card-body">
+        <span class="badge bg-info mb-2"><%= movie.rating.round(1) %> ⭐</span>
+        <% list_count = movie.lists.count %>
+        <span class="badge bg-info mb-2">On <%= list_count %> <%= list_count > 1 ? "Lists" : "List" %> 🍿</span>
+        <h5 class="card-title"><%= movie.title %></h5>
+      </div>
+    </div>
   <% end %>
 
-    <% if bookmark %>
-      <%= button_to bookmark_path(bookmark),
-          method: :delete,
-          class: "position-absolute top-0 end-0 m-2 px-1 rounded-3 border-0 bg-danger text-white",
-          form: { data: { turbo_confirm: "Are you sure?" } } do %>
-        <i class="fa-solid fa-trash"></i>
-      <% end %>
+  <% unless save_icon %>
+    <%= link_to movie_path(movie), class: "text-decoration-none text-dark" do %>
+      <%= card_content %>
     <% end %>
-
-    <img
-      src="<%=movie.poster_url%>"
-      onerror="this.onerror=null; this.src='https://placehold.co/300x450?text=No+Poster+Available&font=roboto';"
-      class="card-img-top"
-      alt="<%= movie.title%>">
-
-    <div class="card-body">
-      <span class="badge bg-info mb-2"><%=movie.rating.round(1)%> ⭐</span>
-      <% list_count = movie.lists.count %>
-      <span class="badge bg-info mb-2">On <%= list_count %> <%= list_count > 1 ? "Lists" : "List" %> 🍿</span>
-      <h5 class="card-title"><%=movie.title%></h5>
-
-    <% if !bookmark && !save_icon %>
-      <p class="card-text">
-        <%=movie.overview%>
-      </p>
-    <% end %>
-
-    </div>
-  </div>
+  <% else %>
+    <%= card_content %>
+  <% end %>
 </div>

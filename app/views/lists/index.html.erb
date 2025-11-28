@@ -1,7 +1,11 @@
 <div class="main d-flex flex-column justify-content-center align-items-center">
   <h1>These are all the lists</h1>
 
-  <%= link_to "Add a list", new_list_path, class: "btn btn-primary rounded-pill" %>
+  <div class="d-flex gap-2 mb-3">
+    <%= link_to "Add a list", new_list_path, class: "btn btn-primary rounded-pill" %>
+    <%= link_to "Movie Ranking", movies_path, class: "btn btn-primary rounded-pill" %>
+  </div>
+
 
   <div class="container py-4">
     <div class="row g-3">
