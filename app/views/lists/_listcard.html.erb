@@ -1,4 +1,11 @@
-          <div class="card h-100 text-dark shadow-sm position-relative">
+          <div class="card h-100 text-white shadow-sm position-relative d-flex align-items-center justify-content-center"
+               style='
+                aspect-ratio: 3 / 2;
+                background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("<%= cl_image_path list.photo.key, height: 300, crop: :fill %>");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+               '>
 
             <%= button_to list_path(list),
                 method: :delete,
@@ -8,9 +15,9 @@
             <% end %>
 
             <%= link_to list_path(list), class: "stretched-link text-decoration-none text-reset" do %>
-              <div class="card-body">
-                <h5 class="card-title"><%= list.name %></h5>
-                <p class="card-text"><strong>Movies:</strong> <%= list.bookmarks.count %></p>
+              <div class="card-body text-center h-100">
+                <h2 class="card-title"><%= list.name %></h2>
+                <h5 class="card-text"><strong>Movies:</strong> <%= list.bookmarks.count %></h5>
               </div>
             <% end %>
 
