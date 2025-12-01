@@ -38,3 +38,13 @@ body, p {
     font-size: 1.25rem; /* make icon more visible */
   }
 }
+
+.carousel-control-prev,
+.carousel-control-next {
+  pointer-events: none;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  pointer-events: auto;
+}

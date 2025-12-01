@@ -36,12 +36,49 @@
               <% end %>
               <h2>Activate Popup-Blocker before watching</h2>
 
-              <div class="ratio ratio-16x9 my-3">
-                <iframe
-                  src="https://vidfast.pro/movie/<%= @movie.tmdb_id %>?theme=db6937&poster=true"
-                  allowfullscreen
-                ></iframe>
-              </div>
+              <% urls = [
+                "https://vidfast.pro/movie/#{@movie.tmdb_id}",
+                "https://vidlink.pro/movie/#{@movie.tmdb_id}",
+                "https://player.videasy.net/movie/#{@movie.tmdb_id}",
+                "https://vidsrc.cc/v2/embed/movie/#{@movie.tmdb_id}",
+                "https://mappletv.uk/watch/movie/#{@movie.tmdb_id}",
+                "https://multiembed.mov/directstream.php?video_id=#{@movie.tmdb_id}&tmdb=1",
+                "https://moviesapi.club/movie/#{@movie.tmdb_id}",
+                "https://www.2embed.cc/embed/#{@movie.tmdb_id}",
+                "https://111movies.com/movie/#{@movie.tmdb_id}",
+                "https://nontongo.win/embed/movie/#{@movie.tmdb_id}",
+                "https://www.primewire.tf/embed/movie?#{@movie.tmdb_id}"
+              ] %>
+
+              <div id="videoCarousel"
+                class="carousel slide"
+                data-bs-ride="false"
+                data-bs-touch="false"
+                data-bs-interval="false">
+                <div class="carousel-inner">
+
+                  <% urls.each_with_index do |url, i| %>
+                    <div class="carousel-item <%= 'active' if i == 0 %>">
+                      <div class="ratio ratio-16x9 my-3">
+                        <iframe
+                          data-src="<%= url %>"
+                          class="video-frame"
+                          allowfullscreen
+                        ></iframe>
+                      </div>
+                    </div>
+                  <% end %>
+
+                </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#videoCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+
+  <button class="carousel-control-next" type="button" data-bs-target="#videoCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
 
               <%= link_to "Back", request.referrer || lists_path, class: "btn btn-secondary mt-4" %>
             </div>
