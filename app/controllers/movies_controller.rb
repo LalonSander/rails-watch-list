@@ -28,7 +28,8 @@ class MoviesController < ApplicationController
           title: first_result['title'] || "Untitled",
           overview: first_result['overview'] || "",
           poster_url: first_result['poster_path'] ? "https://image.tmdb.org/t/p/w500#{first_result['poster_path']}" : "https://placehold.co/300x450?text=No+Poster",
-          rating: first_result['vote_average'] || 0.0
+          rating: first_result['vote_average'] || 0.0,
+          tmdb_id: first_result['id'] || 0
         )
 
         if @movie.save

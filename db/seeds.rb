@@ -19,5 +19,6 @@ movies.each do |movie|
   Movie.create({ title: movie['title'],
                  overview: movie['overview'],
                  poster_url: "https://image.tmdb.org/t/p/w500#{movie['poster_path']}",
-                 rating: movie['vote_average']})
+                 rating: movie['vote_average'],
+                 tmdb_id: movie['id']})
 end

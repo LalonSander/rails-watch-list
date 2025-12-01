@@ -4,6 +4,7 @@ class Movie < ApplicationRecord
 
   validates :title, presence: true, uniqueness: true
   validates :overview, presence: true
+  validates :tmdb_id, presence: true
 
   #before_destroy :check_for_bookmarks
 

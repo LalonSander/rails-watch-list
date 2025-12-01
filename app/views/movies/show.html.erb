@@ -34,6 +34,14 @@
               <% else %>
                 <p class="text-muted mt-3">This movie is not in any list yet.</p>
               <% end %>
+              <h2>Activate Popup-Blocker before watching</h2>
+
+              <div class="ratio ratio-16x9 my-3">
+                <iframe
+                  src="https://vidfast.pro/movie/<%= @movie.tmdb_id %>?theme=db6937&poster=true"
+                  allowfullscreen
+                ></iframe>
+              </div>
 
               <%= link_to "Back", request.referrer || lists_path, class: "btn btn-secondary mt-4" %>
             </div>
