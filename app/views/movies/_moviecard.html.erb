@@ -2,7 +2,6 @@
 <% save_icon ||= false %>
 
 <div class="col-6 col-md-4 col-lg-3 p-1">
-  <% card_content = capture do %>
     <div class="card h-100 position-relative">
 
       <% if save_icon %>
@@ -29,11 +28,12 @@
         <%= button_to bookmark_path(bookmark),
               method: :delete,
               class: "position-absolute top-0 end-0 m-2 px-1 rounded-3 border-0 bg-danger text-white mobile-action-btn",
-              form: { data: { turbo_confirm: "Are you sure?" } } do %>
+              form: { data: { turbo_confirm: "Remove this movie from the list?" } } do %>
           <i class="fa-solid fa-trash"></i>
         <% end %>
       <% end %>
 
+  <% card_content = capture do %>
       <img
         src="<%= movie.poster_url %>"
         onerror="this.onerror=null; this.src='https://placehold.co/300x450?text=No+Poster+Available&font=roboto';"
