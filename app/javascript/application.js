@@ -3,4 +3,4 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "@popperjs/core";
 import "bootstrap";
-import "./video_carousel.js"
+import "video_carousel";
