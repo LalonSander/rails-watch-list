@@ -22,3 +22,19 @@ h1, h2, h3, h4, h5 {
 body, p {
   font-family: 'Inter', sans-serif;
 }
+
+@media (max-width: 576px) {
+  .mobile-action-btn {
+    width: 44px;        /* defines the square */
+    height: 44px;
+    padding: 0;         /* remove extra spacing */
+    display: flex;      /* center icons */
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px; /* slightly rounded square */
+  }
+
+  .mobile-action-btn i {
+    font-size: 1.25rem; /* make icon more visible */
+  }
+}
