@@ -13,7 +13,12 @@
                 <h5 class="mt-3">Episodes:</h5>
                 <div class="d-flex flex-wrap">
                   <% @season.episodes.each do |episode| %>
-                    <%= link_to "Episode #{episode.episode_number} - #{episode.title}", series_season_episode_path(@season.series, @season, episode, list_id: params[:list_id]), class: "btn btn-outline-primary m-1" %>
+                    <%= link_to series_season_episode_path(@season.series, @season, episode, list_id: params[:list_id]), class: "btn btn-outline-primary d-flex align-items-center mb-3 p-3 w-100 text-start" do %>
+                      <%= image_tag episode.still_url, alt: episode.title, class: "me-3", style: "height: 100px; width: auto; object-fit: cover;" %>
+                      <div>
+                        <h5 class="mb-1">Episode <%= episode.episode_number %> - <%= episode.title %></h5>
+                      </div>
+                    <% end %>
                   <% end %>
                 </div>
               <% else %>
