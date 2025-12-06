@@ -1,5 +1,5 @@
-<%= form_with url: list_search_items_path(@list), method: :get, local: true, class: "d-flex mb-4" do |f| %>
-  <%= f.text_field :query, placeholder: "Search for a title", class: "form-control me-2" %>
-  <%= f.select :type, [["Movie", "movie"], ["Series", "tv"]], {}, class: "form-select me-2" %>
+<%= form_with url: list_search_items_path(@list), method: :get, local: true, class: "d-flex flex-column flex-md-row mb-4" do |f| %>
+  <%= f.text_field :query, placeholder: "Search for a title", class: "form-control mb-2 mb-md-0 me-md-2" %>
+  <%= f.select :type, [["Movie", "movie"], ["Series", "tv"]], {}, class: "form-select mb-2 mb-md-0 me-md-2" %>
   <%= f.submit "Search", class: "btn btn-primary" %>
 <% end %>

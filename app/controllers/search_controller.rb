@@ -34,7 +34,9 @@ class SearchController < ApplicationController
 
         # If it's a TV series, fetch seasons and episodes
         if type == "tv"
-          number_of_seasons = first_result["number_of_seasons"] || 1
+          tvapi_url = "https://tmdb.lewagon.com/tv/#{@item.tmdb_id}"
+          tv_data = JSON.parse(URI.open(tvapi_url).read)
+          number_of_seasons = tv_data['number_of_seasons']
           fetch_tv_details(@item, number_of_seasons)
         end
       end
