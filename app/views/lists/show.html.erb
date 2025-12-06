@@ -7,34 +7,39 @@
           <h1 class="card-title mb-3"><%= @list.name %></h1>
 
           <div class="col-8 p-5">
-            <h5>Add a movie</h5>
+            <h5>Add a movie or series</h5>
             <%= render "bookmarks/form", list: @list, bookmark: @bookmark  %>
           </div>
 
-          <% if defined?(@movie) && @movie.present? %>
+          <%# ===== SEARCH RESULT ===== %>
+          <% if defined?(@item) && @item.present? %>
             <h5 class="mt-4">Search Result:</h5>
             <div class="row">
-              <%= render "movies/moviecard", movie: @movie, save_icon: true %>
+              <%= render partial: "shared/itemcard", locals: { item: @item, save_icon: true, list: @list } %>
             </div>
-          <% elsif defined?(@movies) && @movies.blank? %>
+
+          <% elsif params[:query].present? %>
             <p class="text-muted mt-4">No results found for "<%= params[:query] %>".</p>
           <% end %>
 
 
+          <%# ===== SAVED BOOKMARKS ===== %>
           <% if @list.bookmarks.any? %>
-            <h5 class="mt-4">Saved Movies:</h5>
+            <h5 class="mt-4">Saved Items:</h5>
             <div class="row">
-              <% @list.bookmarks.each do |bookmark| %>
 
-                <%= render "movies/moviecard", movie: bookmark.movie, bookmark: bookmark %>
-
+              <% @list.bookmarks.includes(:bookmarkable).each do |bookmark| %>
+                <%= render partial: "shared/itemcard",
+                           locals: { item: bookmark.bookmarkable, bookmark: bookmark, list: @list } %>
               <% end %>
+
             </div>
           <% else %>
-            <p class="text-muted">No movies saved.</p>
+            <p class="text-muted">No items saved.</p>
           <% end %>
 
           <%= link_to "Back to list overview", lists_path, class: "btn btn-secondary mt-4" %>
+
         </div>
       </div>
 

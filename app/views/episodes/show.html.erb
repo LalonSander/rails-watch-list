@@ -1,0 +1,64 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+
+      <div class="card shadow-sm p-3">
+        <div class="row g-0">
+
+          <div class="col-md-4">
+            <img
+              src="<%= @episode.still_url %>"
+              onerror="this.onerror=null; this.src='https://placehold.co/300x450?text=No+Poster+Available&font=roboto';"
+              class="img-fluid rounded"
+              alt="<%= @episode.title %>">
+          </div>
+
+          <div class="col-md-8">
+            <div class="card-body">
+              <h2 class="card-title"><%= @episode.series.title %> - S<%= @episode.season.season_number %>E<%= @episode.episode_number %> - <%= @episode.title %></h2>
+              <p class="card-text"><%= @episode.overview.presence || "No overview available." %></p>
+              <h2>Activate Popup-Blocker before watching</h2>
+
+              <%# Video Carousel %>
+              <% urls = [
+                "https://vidfast.pro/tv/#{@episode.series.tmdb_id}/#{@episode.season.season_number}/#{@episode.episode_number}?theme=db6937&poster=true",
+                "https://vidlink.pro/tv/#{@episode.series.tmdb_id}/#{@episode.season.season_number}/#{@episode.episode_number}?primaryColor=dc3545&secondaryColor=a2a2a2&iconColor=eefdec&icons=default&player=default",
+                "https://player.videasy.net/tv/#{@episode.series.tmdb_id}/#{@episode.season.season_number}/#{@episode.episode_number}?color=db6937",
+                "https://vidsrc.cc/v2/embed/tv/#{@episode.series.tmdb_id}/#{@episode.season.season_number}/#{@episode.episode_number}",
+                "https://mappletv.uk/watch/tv/#{@episode.series.tmdb_id}-#{@episode.season.season_number}-#{@episode.episode_number}?theme=DB6937",
+                "ttps://multiembed.mov/directstream.php?video_id=#{@episode.series.tmdb_id}&s=#{@episode.season.season_number}&e=#{@episode.episode_number}&tmdb=1",
+                "https://moviesapi.club/tv/#{@episode.series.tmdb_id}-#{@episode.season.season_number}-#{@episode.episode_number}",
+                "https://www.2embed.cc/embedtv/#{@episode.series.tmdb_id}&s=#{@episode.season.season_number}&e=#{@episode.episode_number}",
+                "https://111movies.com/tv/#{@episode.series.tmdb_id}/#{@episode.season.season_number}/#{@episode.episode_number}",
+                "https://nontongo.win/embed/tv/#{@episode.series.tmdb_id}/#{@episode.season.season_number}/#{@episode.episode_number}",
+                "https://www.primewire.tf/embed/tv?tmdb=#{@episode.series.tmdb_id}&season=#{@episode.season.season_number}&episode=#{@episode.episode_number}"
+              ] %>
+
+              <div id="videoCarousel" class="carousel slide" data-bs-ride="false" data-bs-touch="false" data-bs-interval="false" data-turbo="false">
+                <div class="carousel-inner">
+                  <% urls.each_with_index do |url, i| %>
+                    <div class="carousel-item <%= 'active' if i == 0 %>">
+                      <div class="ratio ratio-16x9 my-3">
+                        <iframe data-src="<%= url %>" class="video-frame" allowfullscreen></iframe>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#videoCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#videoCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon"></span>
+                </button>
+              </div>
+
+                <%= link_to "Back to Season", series_season_path(@series, @season, list_id: params[:list_id]), class: "btn btn-secondary mt-3" %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

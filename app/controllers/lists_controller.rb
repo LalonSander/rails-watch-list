@@ -2,7 +2,7 @@ class ListsController < ApplicationController
   before_action :set_list, only: [:show, :destroy]
 
   def index
-    @lists = List.all
+    @lists = current_user.lists.all
   end
 
   def show
@@ -18,7 +18,7 @@ class ListsController < ApplicationController
   end
 
   def create
-    @list = List.new(list_params)
+    @list = current_user.lists.build(list_params)
 
     if @list.save
       redirect_to list_path(@list)
@@ -40,6 +40,6 @@ class ListsController < ApplicationController
   end
 
   def set_list
-    @list = List.find(params[:id])
+    @list = current_user.lists.find(params[:id])
   end
 end

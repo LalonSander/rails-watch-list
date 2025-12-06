@@ -1,16 +1,18 @@
 <div class="container py-5">
 
-    <div class="d-flex gap-2 mb-3">
-      <h1 class="mb-4">Movies, ranked by number of lists</h1>
-      <p><%= link_to "See all lists", lists_path, class: "btn btn-primary rounded-pill" %></p>
-    </div>
+  <div class="d-flex gap-2 mb-3">
+    <h1 class="mb-4">Movies, ranked by number of lists</h1>
+    <p><%= link_to "See all lists", lists_path, class: "btn btn-primary rounded-pill" %></p>
+  </div>
 
   <% if @movies.any? %>
     <div class="row">
       <% @movies.each do |movie| %>
-
-        <%= render "movies/moviecard", movie: movie %>
-
+        <%= render "shared/itemcard",
+              item: movie,
+              bookmark: nil,
+              save_icon: false,
+              list: nil %>
       <% end %>
     </div>
   <% else %>

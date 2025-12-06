@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_12_01_080827) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_06_122243) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -44,18 +44,33 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_01_080827) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.text "comment"
-    t.bigint "movie_id", null: false
     t.bigint "list_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "bookmarkable_type", null: false
+    t.bigint "bookmarkable_id", null: false
+    t.index ["bookmarkable_type", "bookmarkable_id"], name: "index_bookmarks_on_bookmarkable"
     t.index ["list_id"], name: "index_bookmarks_on_list_id"
-    t.index ["movie_id"], name: "index_bookmarks_on_movie_id"
+  end
+
+  create_table "episodes", force: :cascade do |t|
+    t.string "title"
+    t.bigint "season_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "overview"
+    t.integer "episode_number"
+    t.string "still_url"
+    t.float "rating"
+    t.index ["season_id"], name: "index_episodes_on_season_id"
   end
 
   create_table "lists", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_lists_on_user_id"
   end
 
   create_table "movies", force: :cascade do |t|
@@ -68,8 +83,42 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_01_080827) do
     t.integer "tmdb_id"
   end
 
+  create_table "seasons", force: :cascade do |t|
+    t.string "title"
+    t.bigint "series_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "season_number"
+    t.index ["series_id"], name: "index_seasons_on_series_id"
+  end
+
+  create_table "series", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "overview"
+    t.string "poster_url"
+    t.float "rating"
+    t.integer "tmdb_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bookmarks", "lists"
-  add_foreign_key "bookmarks", "movies"
+  add_foreign_key "episodes", "seasons"
+  add_foreign_key "lists", "users"
+  add_foreign_key "seasons", "series"
 end
